@@ -1,5 +1,24 @@
 // Package dreader implements a delayed reader. A Reader that waits a fixed amount of time before returning.
 // A DelayedReader will block Reads a specific time for more data and returns once it times out.
+//
+// This package could be use for reading from a terminal where a escape sequence could be from one to several bytes with the only difference of the time
+//
+//   r,w := io.Pipe()
+//
+//   dr := dreader.New(r, time.Millisecond * 10)
+//
+//   go func(){
+//     buf := make([]byte, 1024)
+//     n, err := dr.Read(buf)
+//     if err != nil {
+//        return err
+//     }
+//     buf[:n] == "hello world"
+//   }
+//
+//   w.Write("hello")
+//   w.Write(" world")
+//
 package dreader
 
 import (
